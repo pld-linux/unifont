@@ -4,15 +4,18 @@ Name:		unifont
 Version:	1.0
 Release:	1
 License:	GPL
-Group:		Applications
-Group(de):	Applikationen
-Group(pl):	Aplikacje
+Group:		X11/Fonts
+Group(de):	X11/Fonts
+Group(pl):	X11/Fonty
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
 Prereq:		/usr/X11R6/bin/mkfontdir
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 Unicode font by Roman Czyborra.
