@@ -2,14 +2,14 @@ Summary:	Unicode font by Roman Czyborra
 Summary(pl):	Font unicode Romana Czyborry
 Name:		unifont
 Version:	1.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Fonts
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 # Source0-md5:	4a1df5242ba65b968bcf7be87f70f1b2
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
-Prereq:		/usr/X11R6/bin/mkfontdir
+Requires(post,postun):	fontpostinst
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -28,23 +28,19 @@ gzip -dc %{SOURCE0} | %{SOURCE1} | bdftopcf | gzip -c - > unifont.pcf.gz
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+install -d $RPM_BUILD_ROOT%{_fontsdir}/misc
 
-install unifont.pcf.gz $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+install unifont.pcf.gz $RPM_BUILD_ROOT%{_fontsdir}/misc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-cd %{_datadir}/fonts/misc
-umask 022
-mkfontdir
+fontpostinst misc
 
 %postun
-cd %{_datadir}/fonts/misc
-umask 022
-mkfontdir
+fontpostinst misc
 
 %files
 %defattr(644,root,root,755)
-%{_datadir}/fonts/misc/*
+%{_fontsdir}/misc/*
