@@ -5,8 +5,6 @@ Version:	1.0
 Release:	1
 License:	GPL
 Group:		X11/Fonts
-Group(de):	X11/Fonts
-Group(pl):	X11/Fonty
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
