@@ -8,7 +8,7 @@ Group:		Applications
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
-Requires:	XFree86
+Prereq:		/usr/X11R6/bin/mkfontdir
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -18,15 +18,16 @@ Unicode font by Roman Czyborra.
 %description -l pl
 Font unicode Romana Czyborry.
 
+%prep
+%setup -T -c
+
 %build
-install -d %{name}-%{version}
-cd %{name}-%{version}
 gzip -dc %{SOURCE0} | %{SOURCE1} | bdftopcf | gzip -c - > unifont.pcf.gz
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+
 install unifont.pcf.gz $RPM_BUILD_ROOT%{_datadir}/fonts/misc
 
 %clean
@@ -44,4 +45,4 @@ mkfontdir
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_datadir}/fonts/misc/*
+%{_datadir}/fonts/misc/*
