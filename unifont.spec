@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		X11/Fonts
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
+# Source0-md5:	4a1df5242ba65b968bcf7be87f70f1b2
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
 Prereq:		/usr/X11R6/bin/mkfontdir
