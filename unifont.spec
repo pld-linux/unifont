@@ -36,7 +36,7 @@ install unifont.pcf.gz $RPM_BUILD_ROOT%{_datadir}/fonts/misc
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post 
+%post
 cd %{_datadir}/fonts/misc
 umask 022
 mkfontdir
