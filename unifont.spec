@@ -19,7 +19,7 @@ Unicode font by Roman Czyborra.
 Font unicode Romana Czyborry.
 
 %prep
-%setup -T -c
+%setup -q -T -c
 
 %build
 gzip -dc %{SOURCE0} | %{SOURCE1} | bdftopcf | gzip -c - > unifont.pcf.gz
