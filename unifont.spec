@@ -10,9 +10,9 @@ Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 Source1:	hex2bdf
 BuildRequires:	XFree86-devel
 Requires(post,postun):	fontpostinst
+Requires:	%{_fontsdir}/misc
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
 
 %description
 Unicode font by Roman Czyborra.
