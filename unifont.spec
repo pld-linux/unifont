@@ -1,0 +1,47 @@
+Summary:	Unicode font by Roman Czyborra
+Summary(pl):	Font unicode Romana Czyborry
+Name:		unifont
+Version:	1.0
+Release:	1
+License:	GPL
+Group:		Applications
+Source0:	%{name}.hex.gz
+Source1:	hex2bdf
+BuildRequires:	XFree86-devel
+Requires:	XFree86
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%description
+Unicode font by Roman Czyborra.
+
+%description -l pl
+Font unicode Romana Czyborry.
+
+%build
+install -d %{name}-%{version}
+cd %{name}-%{version}
+gzip -dc %{SOURCE0} | %{SOURCE1} | bdftopcf | gzip -c - > unifont.pcf.gz
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+install unifont.pcf.gz $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post 
+cd %{_datadir}/fonts/misc
+umask 022
+mkfontdir
+
+%postun
+cd %{_datadir}/fonts/misc
+umask 022
+mkfontdir
+
+%files
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_datadir}/fonts/misc/*
