@@ -8,7 +8,7 @@ Group:		Fonts
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
 # Source0-md5:	4a1df5242ba65b968bcf7be87f70f1b2
 Source1:	hex2bdf
-BuildRequires:	XFree86-devel
+BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 BuildArch:	noarch
