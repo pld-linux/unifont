@@ -1,5 +1,5 @@
 Summary:	Unicode font by Roman Czyborra
-Summary(pl.UTF-8):   Font unicode Romana Czyborry
+Summary(pl.UTF-8):	Font unicode Romana Czyborry
 Name:		unifont
 Version:	1.0
 Release:	2
