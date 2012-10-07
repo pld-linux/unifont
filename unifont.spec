@@ -2,7 +2,7 @@ Summary:	Unicode font by Roman Czyborra
 Summary(pl.UTF-8):	Font unicode Romana Czyborry
 Name:		unifont
 Version:	1.0
-Release:	2
+Release:	3
 License:	GPL
 Group:		Fonts
 Source0:	http://czyborra.com/unifont/%{name}.hex.gz
