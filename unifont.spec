@@ -1,13 +1,13 @@
-Summary:	Unicode font by Roman Czyborra
-Summary(pl.UTF-8):	Font unicode Romana Czyborry
+Summary:	GNU Unifont - Unicode bitmap font
+Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	1.0
-Release:	3
-License:	GPL
+Version:	6.3.20131020
+Release:	1
+License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
-Source0:	http://czyborra.com/unifont/%{name}.hex.gz
-# Source0-md5:	4a1df5242ba65b968bcf7be87f70f1b2
-Source1:	hex2bdf
+Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	dd9523ee600c2ec4db0649075acfa671
+URL:		http://czyborra.com/unifont/
 BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
@@ -15,32 +15,164 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Unicode font by Roman Czyborra.
+GNU Unifont is an official GNU package. It is a dual-width
+(8x16/16x16) bitmap font, designed to provide coverage for all of
+Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
+a glyph for each visible code point in the Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
 
 %description -l pl.UTF-8
-Font unicode Romana Czyborry.
+GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
+szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
+warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
+zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+%package -n fonts-misc-unicode
+Summary:	GNU Unifont - Unicode font in PCF format
+Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
+Group:		Fonts
+Requires(post,postun):	fontpostinst
+Requires:	%{_fontsdir}/misc
+Obsoletes:	unifont
+
+%description -n fonts-misc-unicode
+GNU Unifont is an official GNU package. It is a dual-width
+(8x16/16x16) bitmap font, designed to provide coverage for all of
+Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
+a glyph for each visible code point in the Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+This package contains the font in PCF format.
+
+%description -n fonts-misc-unicode -l pl.UTF-8
+GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
+szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
+warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
+zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+Ten pakiet zawiera font w formacie PCF.
+
+%package -n fonts-TTF-unicode
+Summary:	GNU Unifont - Unicode font in PCF format
+Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
+Group:		Fonts
+Requires(post,postun):	fontpostinst
+Requires:	%{_fontsdir}/TTF
+
+%description -n fonts-TTF-unicode
+GNU Unifont is an official GNU package. It is a dual-width
+(8x16/16x16) bitmap font, designed to provide coverage for all of
+Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
+a glyph for each visible code point in the Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+This package contains the font in TTF format.
+
+%description -n fonts-TTF-unicode -l pl.UTF-8
+GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
+szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
+warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
+zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+Ten pakiet zawiera font w formacie TTF.
+
+%package tools
+Summary:	GNU Unifont utility programs
+Summary(pl.UTF-8):	Programy narzędziowe dołączone do pakietu GNU Unifont
+Group:		Development/Tools
+
+%description tools
+GNU Unifont utility programs.
+
+%description tools -l pl.UTF-8
+Programy narzędziowe dołączone do pakietu GNU Unifont.
 
 %prep
-%setup -q -T -c
+%setup -q
 
 %build
-gzip -dc %{SOURCE0} | %{SOURCE1} | bdftopcf | gzip -c - > unifont.pcf.gz
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_fontsdir}/misc
 
-install unifont.pcf.gz $RPM_BUILD_ROOT%{_fontsdir}/misc
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	USRDIR=usr \
+	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
+	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
+
+# source data not needed, docs packaged as %doc
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%post	-n fonts-misc-unifont
 fontpostinst misc
 
-%postun
+%postun	-n fonts-misc-unifont
 fontpostinst misc
 
-%files
+%post	-n fonts-TTF-unifont
+fontpostinst TTF
+
+%postun	-n fonts-TTF-unifont
+fontpostinst TTF
+
+%files -n fonts-misc-unifont
 %defattr(644,root,root,755)
-%{_fontsdir}/misc/*
+%doc LICENSE README TUTORIAL
+%{_fontsdir}/misc/unifont.pcf.gz
+%{_mandir}/man5/unifont.5*
+
+%files -n fonts-TTF-unifont
+%defattr(644,root,root,755)
+%{_fontsdir}/TTF/unifont.ttf
+
+%files tools
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/bdfimplode
+%attr(755,root,root) %{_bindir}/hex2bdf
+%attr(755,root,root) %{_bindir}/hex2sfd
+%attr(755,root,root) %{_bindir}/hexbraille
+%attr(755,root,root) %{_bindir}/hexdraw
+%attr(755,root,root) %{_bindir}/hexmerge
+%attr(755,root,root) %{_bindir}/johab2ucs2
+%attr(755,root,root) %{_bindir}/unibdf2hex
+%attr(755,root,root) %{_bindir}/unibmp2hex
+%attr(755,root,root) %{_bindir}/unicoverage
+%attr(755,root,root) %{_bindir}/unidup
+%attr(755,root,root) %{_bindir}/unifontchojung
+%attr(755,root,root) %{_bindir}/unifontksx
+%attr(755,root,root) %{_bindir}/unifontpic
+%attr(755,root,root) %{_bindir}/unigencircles
+%attr(755,root,root) %{_bindir}/unigenwidth
+%attr(755,root,root) %{_bindir}/unihex2bmp
+%attr(755,root,root) %{_bindir}/unihexgen
+%attr(755,root,root) %{_bindir}/unipagecount
+%{_mandir}/man1/bdfimplode.1*
+%{_mandir}/man1/hex2bdf.1*
+%{_mandir}/man1/hex2sfd.1*
+%{_mandir}/man1/hexbraille.1*
+%{_mandir}/man1/hexdraw.1*
+%{_mandir}/man1/hexmerge.1*
+%{_mandir}/man1/johab2ucs2.1*
+%{_mandir}/man1/unibdf2hex.1*
+%{_mandir}/man1/unibmp2hex.1*
+%{_mandir}/man1/unicoverage.1*
+%{_mandir}/man1/unidup.1*
+%{_mandir}/man1/unifontchojung.1*
+%{_mandir}/man1/unifontksx.1*
+%{_mandir}/man1/unifontpic.1*
+%{_mandir}/man1/unigencircles.1*
+%{_mandir}/man1/unigenwidth.1*
+%{_mandir}/man1/unihex2bmp.1*
+%{_mandir}/man1/unihexgen.1*
+%{_mandir}/man1/unipagecount.1*
