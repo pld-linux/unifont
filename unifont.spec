@@ -2,17 +2,16 @@ Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
 Version:	6.3.20131020
-Release:	1
+Release:	2
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	dd9523ee600c2ec4db0649075acfa671
 URL:		http://czyborra.com/unifont/
-BuildRequires:	xorg-app-bdftopcf
 BuildRequires:	fontforge
+BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,6 +35,9 @@ Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 Obsoletes:	unifont
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n fonts-misc-unifont
 GNU Unifont is an official GNU package. It is a dual-width
@@ -61,6 +63,9 @@ Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/TTF
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n fonts-TTF-unifont
 GNU Unifont is an official GNU package. It is a dual-width
