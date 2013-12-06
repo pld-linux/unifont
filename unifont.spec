@@ -9,6 +9,7 @@ Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.ta
 # Source0-md5:	dd9523ee600c2ec4db0649075acfa671
 URL:		http://czyborra.com/unifont/
 BuildRequires:	xorg-app-bdftopcf
+BuildRequires:	fontforge
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 BuildArch:	noarch
@@ -28,7 +29,7 @@ warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
 zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
 Multilingual Plane (Plane 0).
 
-%package -n fonts-misc-unicode
+%package -n fonts-misc-unifont
 Summary:	GNU Unifont - Unicode font in PCF format
 Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
 Group:		Fonts
@@ -36,7 +37,7 @@ Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 Obsoletes:	unifont
 
-%description -n fonts-misc-unicode
+%description -n fonts-misc-unifont
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
@@ -45,7 +46,7 @@ Multilingual Plane (Plane 0).
 
 This package contains the font in PCF format.
 
-%description -n fonts-misc-unicode -l pl.UTF-8
+%description -n fonts-misc-unifont -l pl.UTF-8
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
@@ -54,14 +55,14 @@ Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera font w formacie PCF.
 
-%package -n fonts-TTF-unicode
+%package -n fonts-TTF-unifont
 Summary:	GNU Unifont - Unicode font in PCF format
 Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/TTF
 
-%description -n fonts-TTF-unicode
+%description -n fonts-TTF-unifont
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
@@ -70,7 +71,7 @@ Multilingual Plane (Plane 0).
 
 This package contains the font in TTF format.
 
-%description -n fonts-TTF-unicode -l pl.UTF-8
+%description -n fonts-TTF-unifont -l pl.UTF-8
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
@@ -94,7 +95,7 @@ Programy narzędziowe dołączone do pakietu GNU Unifont.
 %setup -q
 
 %build
-%{__make} \
+%{__make} -j1 \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall" \
 	LDFLAGS="%{rpmldflags}"
