@@ -1,12 +1,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	6.3.20131020
-Release:	2
+Version:	6.3.20131221
+Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	dd9523ee600c2ec4db0649075acfa671
+# Source0-md5:	56296ae1eca1b3753933358472166777
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	xorg-app-bdftopcf
@@ -116,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # source data not needed, docs packaged as %doc
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont
+# sample covering plane 0
+%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,TTF/unifont_sample.ttf}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -134,7 +136,7 @@ fontpostinst TTF
 
 %files -n fonts-misc-unifont
 %defattr(644,root,root,755)
-%doc LICENSE README TUTORIAL
+%doc README
 %{_fontsdir}/misc/unifont.pcf.gz
 %{_mandir}/man5/unifont.5*
 
@@ -161,8 +163,10 @@ fontpostinst TTF
 %attr(755,root,root) %{_bindir}/unigencircles
 %attr(755,root,root) %{_bindir}/unigenwidth
 %attr(755,root,root) %{_bindir}/unihex2bmp
+%attr(755,root,root) %{_bindir}/unihex2png
 %attr(755,root,root) %{_bindir}/unihexgen
 %attr(755,root,root) %{_bindir}/unipagecount
+%attr(755,root,root) %{_bindir}/unipng2hex
 %{_mandir}/man1/bdfimplode.1*
 %{_mandir}/man1/hex2bdf.1*
 %{_mandir}/man1/hex2sfd.1*
@@ -180,5 +184,7 @@ fontpostinst TTF
 %{_mandir}/man1/unigencircles.1*
 %{_mandir}/man1/unigenwidth.1*
 %{_mandir}/man1/unihex2bmp.1*
+%{_mandir}/man1/unihex2png.1*
 %{_mandir}/man1/unihexgen.1*
 %{_mandir}/man1/unipagecount.1*
+%{_mandir}/man1/unipng2hex.1*
