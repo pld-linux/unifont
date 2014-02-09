@@ -1,12 +1,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	6.3.20131221
+Version:	6.3.20140204
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	56296ae1eca1b3753933358472166777
+# Source0-md5:	03c4410fb589b33667dc6dfa137e8438
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	xorg-app-bdftopcf
@@ -85,6 +85,32 @@ Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera font w formacie TTF.
 
+%package console
+Summary:	GNU Unifont - Unicode font in PSF format
+Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PSF
+Group:		Fonts
+Requires:	kbd
+
+%description console
+GNU Unifont is an official GNU package. It is a dual-width
+(8x16/16x16) bitmap font, designed to provide coverage for all of
+Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
+a glyph for each visible code point in the Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+This package contains 512 glyph subset in PSF format for use with
+Linux console.
+
+%description console -l pl.UTF-8
+GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
+szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
+warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
+zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+Multilingual Plane (Plane 0).
+
+Ten pakiet zawiera 512-znakowy podzbiór w formacie PSF, przeznaczony
+do używania na linuksowej konsoli.
+
 %package tools
 Summary:	GNU Unifont utility programs
 Summary(pl.UTF-8):	Programy narzędziowe dołączone do pakietu GNU Unifont
@@ -111,6 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	USRDIR=usr \
+	CONSOLEDEST=$RPM_BUILD_ROOT/lib/kbd/consolefonts \
 	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
@@ -138,11 +165,19 @@ fontpostinst TTF
 %defattr(644,root,root,755)
 %doc README
 %{_fontsdir}/misc/unifont.pcf.gz
+%{_fontsdir}/misc/unifont_csur.pcf.gz
 %{_mandir}/man5/unifont.5*
 
 %files -n fonts-TTF-unifont
 %defattr(644,root,root,755)
 %{_fontsdir}/TTF/unifont.ttf
+%{_fontsdir}/TTF/unifont_csur.ttf
+%{_fontsdir}/TTF/unifont_upper.ttf
+%{_fontsdir}/TTF/unifont_upper_csur.ttf
+
+%files console
+%defattr(644,root,root,755)
+/lib/kbd/consolefonts/Unifont-APL8x16.psf.gz
 
 %files tools
 %defattr(644,root,root,755)
@@ -151,6 +186,7 @@ fontpostinst TTF
 %attr(755,root,root) %{_bindir}/hex2sfd
 %attr(755,root,root) %{_bindir}/hexbraille
 %attr(755,root,root) %{_bindir}/hexdraw
+%attr(755,root,root) %{_bindir}/hexkinya
 %attr(755,root,root) %{_bindir}/hexmerge
 %attr(755,root,root) %{_bindir}/johab2ucs2
 %attr(755,root,root) %{_bindir}/unibdf2hex
@@ -172,6 +208,7 @@ fontpostinst TTF
 %{_mandir}/man1/hex2sfd.1*
 %{_mandir}/man1/hexbraille.1*
 %{_mandir}/man1/hexdraw.1*
+%{_mandir}/man1/hexkinya.1*
 %{_mandir}/man1/hexmerge.1*
 %{_mandir}/man1/johab2ucs2.1*
 %{_mandir}/man1/unibdf2hex.1*
