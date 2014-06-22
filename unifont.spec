@@ -1,14 +1,16 @@
+%include	/usr/lib/rpm/macros.perl
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	6.3.20140214
+Version:	7.0.01
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	25a31c9c5657666bf9a0e613df1d75b5
+# Source0-md5:	89c1963fb118c9f0f5eeeb68ff354e15
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
+BuildRequires:	rpm-perlprov
 BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
@@ -122,6 +124,17 @@ GNU Unifont utility programs.
 %description tools -l pl.UTF-8
 Programy narzędziowe dołączone do pakietu GNU Unifont.
 
+%package viewer
+Summary:	GNU Unifont viewer
+Summary(pl.UTF-8):	Przeglądarka GNU Unifont
+Group:		X11/Applications
+
+%description viewer
+GNU Unifont viewer based on wxWidgets Perl interface.
+
+%description viewer -l pl.UTF-8
+Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
+
 %prep
 %setup -q
 
@@ -200,6 +213,7 @@ fontpostinst TTF
 %attr(755,root,root) %{_bindir}/unigenwidth
 %attr(755,root,root) %{_bindir}/unihex2bmp
 %attr(755,root,root) %{_bindir}/unihex2png
+%attr(755,root,root) %{_bindir}/unihexfill
 %attr(755,root,root) %{_bindir}/unihexgen
 %attr(755,root,root) %{_bindir}/unipagecount
 %attr(755,root,root) %{_bindir}/unipng2hex
@@ -225,3 +239,7 @@ fontpostinst TTF
 %{_mandir}/man1/unihexgen.1*
 %{_mandir}/man1/unipagecount.1*
 %{_mandir}/man1/unipng2hex.1*
+
+%files viewer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/unifont-viewer
