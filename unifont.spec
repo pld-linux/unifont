@@ -2,12 +2,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	7.0.02
+Version:	7.0.03
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1090eec043ebba4235d4f72fa97843a0
+# Source0-md5:	17f4b4de9cf0a58049da251611c19415
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
@@ -20,14 +20,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
-a glyph for each visible code point in the Unicode 6.3 Basic
+a glyph for each visible code point in the Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 %description -l pl.UTF-8
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
-zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 %package -n fonts-misc-unifont
@@ -45,7 +45,7 @@ BuildArch:	noarch
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
-a glyph for each visible code point in the Unicode 6.3 Basic
+a glyph for each visible code point in the Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 This package contains the font in PCF format.
@@ -54,7 +54,7 @@ This package contains the font in PCF format.
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
-zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera font w formacie PCF.
@@ -73,7 +73,7 @@ BuildArch:	noarch
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
-a glyph for each visible code point in the Unicode 6.3 Basic
+a glyph for each visible code point in the Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 This package contains the font in TTF format.
@@ -82,7 +82,7 @@ This package contains the font in TTF format.
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
-zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera font w formacie TTF.
@@ -97,7 +97,7 @@ Requires:	kbd
 GNU Unifont is an official GNU package. It is a dual-width
 (8x16/16x16) bitmap font, designed to provide coverage for all of
 Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
-a glyph for each visible code point in the Unicode 6.3 Basic
+a glyph for each visible code point in the Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 This package contains 512 glyph subset in PSF format for use with
@@ -107,7 +107,7 @@ Linux console.
 GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
 szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
 warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
-zawiera glify dla wszystkich widocznych znaków Unicode 6.3 Basic
+zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera 512-znakowy podzbiór w formacie PSF, przeznaczony
@@ -236,6 +236,7 @@ fontpostinst TTF
 %{_mandir}/man1/unigenwidth.1*
 %{_mandir}/man1/unihex2bmp.1*
 %{_mandir}/man1/unihex2png.1*
+%{_mandir}/man1/unihexfill.1*
 %{_mandir}/man1/unihexgen.1*
 %{_mandir}/man1/unipagecount.1*
 %{_mandir}/man1/unipng2hex.1*
