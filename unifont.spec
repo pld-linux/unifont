@@ -1,9 +1,11 @@
+%bcond_with	viewer		# build unifont-viewer package, requires perl-Wx
+
 %include	/usr/lib/rpm/macros.perl
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
 Version:	7.0.03
-Release:	1
+Release:	2
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -241,6 +243,8 @@ fontpostinst TTF
 %{_mandir}/man1/unipagecount.1*
 %{_mandir}/man1/unipng2hex.1*
 
+%if %{with viewer}
 %files viewer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/unifont-viewer
+%endif
