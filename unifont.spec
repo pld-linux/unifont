@@ -1,3 +1,5 @@
+#
+# Conditional build:
 %bcond_with	viewer		# build unifont-viewer package, requires perl-Wx
 
 %include	/usr/lib/rpm/macros.perl
