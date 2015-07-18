@@ -1,17 +1,17 @@
 #
 # Conditional build:
-%bcond_with	viewer		# build unifont-viewer package, requires perl-Wx
+%bcond_without	viewer		# build unifont-viewer package (requires perl-Wx)
 
 %include	/usr/lib/rpm/macros.perl
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	7.0.06
+Version:	8.0.01
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	e2f1afb52cbe659384c0764aede3cdbe
+# Source0-md5:	b813e863f35e0f5f6235e73041c7b1a6
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
@@ -117,6 +117,19 @@ Multilingual Plane (Plane 0).
 Ten pakiet zawiera 512-znakowy podzbiór w formacie PSF, przeznaczony
 do używania na linuksowej konsoli.
 
+%package source
+Summary:	GNU Unifont source data
+Summary(pl.UTF-8):	Dane źródłowe pakietu GNU Unifont
+Group:		Development/Tools
+
+%description source
+GNU Unifont source data, which could be used to generate or embed
+fonts in other formats.
+
+%description source -l pl.UTF-8
+Dane źródłowe pakietu GNU Unifont, które można wykorzystać do
+generowania lub osadzania fontów w innych formatach.
+
 %package tools
 Summary:	GNU Unifont utility programs
 Summary(pl.UTF-8):	Programy narzędziowe dołączone do pakietu GNU Unifont
@@ -158,8 +171,9 @@ rm -rf $RPM_BUILD_ROOT
 	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
-# source data not needed, docs packaged as %doc
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont
+# docs packaged as %doc
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/unifont/{ChangeLog,INSTALL,NEWS,README,unifont.info,unifont.txt}.gz
+
 # sample covering plane 0
 %{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,TTF/unifont_sample.ttf}
 
@@ -195,6 +209,14 @@ fontpostinst TTF
 %files console
 %defattr(644,root,root,755)
 /lib/kbd/consolefonts/Unifont-APL8x16.psf.gz
+
+%files source
+%defattr(644,root,root,755)
+%dir %{_datadir}/unifont
+%{_datadir}/unifont/bmp-combining.txt
+%{_datadir}/unifont/unifont.bmp
+%{_datadir}/unifont/unifont.hex
+%{_datadir}/unifont/wchardata.c
 
 %files tools
 %defattr(644,root,root,755)
