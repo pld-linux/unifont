@@ -6,12 +6,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	9.0.01
+Version:	9.0.02
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	7f36b2600a60f74b9595cc31c3699ebd
+# Source0-md5:	f6185037e372b06429fb8651c826e5d8
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
@@ -153,7 +153,7 @@ GNU Unifont viewer based on wxWidgets Perl interface.
 Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 
 %prep
-%setup -q -n %{name}-9.0
+%setup -q
 
 %build
 %{__make} -j1 \
@@ -204,7 +204,6 @@ fontpostinst TTF
 %{_fontsdir}/TTF/unifont.ttf
 %{_fontsdir}/TTF/unifont_csur.ttf
 %{_fontsdir}/TTF/unifont_upper.ttf
-%{_fontsdir}/TTF/unifont_upper_csur.ttf
 
 %files console
 %defattr(644,root,root,755)
