@@ -6,12 +6,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	11.0.01
+Version:	11.0.02
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	47bd330c3ec131fbfaf091ae52b218a1
+# Source0-md5:	de08a5e2c42981c0b05b03c4fae89362
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
@@ -171,9 +171,6 @@ rm -rf $RPM_BUILD_ROOT
 	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
-# docs packaged as %doc
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/unifont/{ChangeLog,INSTALL,NEWS,README,unifont.info,unifont.txt}.gz
-
 # sample covering plane 0
 %{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,TTF/unifont_sample.ttf}
 
@@ -213,7 +210,7 @@ fontpostinst TTF
 %defattr(644,root,root,755)
 %dir %{_datadir}/unifont
 %{_datadir}/unifont/plane00-combining.txt
-%{_datadir}/unifont/unifont.bmp
+%{_datadir}/unifont/unifont.bmp.gz
 %{_datadir}/unifont/unifont.hex
 %{_datadir}/unifont/wchardata.c
 
