@@ -6,12 +6,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	11.0.02
+Version:	11.0.03
 Release:	1
 License:	GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Source0:	http://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	de08a5e2c42981c0b05b03c4fae89362
+# Source0-md5:	7d650605254721d14c20ef4b9c5b82d8
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
