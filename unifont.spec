@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_without	viewer		# build unifont-viewer package (requires perl-Wx)
 
-%include	/usr/lib/rpm/macros.perl
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
