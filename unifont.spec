@@ -1,20 +1,20 @@
 #
 # Conditional build:
-%bcond_without	viewer		# build unifont-viewer package (requires perl-Wx)
+%bcond_without	viewer	# unifont-viewer package (requires perl-Wx)
 
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	13.0.03
+Version:	13.0.04
 Release:	1
-License:	GPL v2+ with GNU font embedding exception
+License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ea585627fce8b5d798161403fbfaef06
+# Source0-md5:	0b86fbd15a46bab3373c502bd94d93ed
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-perlprov
-BuildRequires:	rpmbuild(macros) >= 1.745
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
@@ -37,13 +37,12 @@ Multilingual Plane (Plane 0).
 %package -n fonts-misc-unifont
 Summary:	GNU Unifont - Unicode font in PCF format
 Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
+License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 Obsoletes:	unifont
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n fonts-misc-unifont
 GNU Unifont is an official GNU package. It is a dual-width
@@ -66,12 +65,11 @@ Ten pakiet zawiera font w formacie PCF.
 %package -n fonts-TTF-unifont
 Summary:	GNU Unifont - Unicode font in PCF format
 Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PCF
+License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/TTF
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n fonts-TTF-unifont
 GNU Unifont is an official GNU package. It is a dual-width
@@ -94,8 +92,10 @@ Ten pakiet zawiera font w formacie TTF.
 %package console
 Summary:	GNU Unifont - Unicode font in PSF format
 Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PSF
+License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Requires:	kbd
+%{?noarchpackage}
 
 %description console
 GNU Unifont is an official GNU package. It is a dual-width
@@ -120,7 +120,9 @@ do używania na linuksowej konsoli.
 %package source
 Summary:	GNU Unifont source data
 Summary(pl.UTF-8):	Dane źródłowe pakietu GNU Unifont
+License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Development/Tools
+%{?noarchpackage}
 
 %description source
 GNU Unifont source data, which could be used to generate or embed
@@ -133,6 +135,7 @@ generowania lub osadzania fontów w innych formatach.
 %package tools
 Summary:	GNU Unifont utility programs
 Summary(pl.UTF-8):	Programy narzędziowe dołączone do pakietu GNU Unifont
+License:	GPL v2+
 Group:		Development/Tools
 
 %description tools
@@ -144,6 +147,7 @@ Programy narzędziowe dołączone do pakietu GNU Unifont.
 %package viewer
 Summary:	GNU Unifont viewer
 Summary(pl.UTF-8):	Przeglądarka GNU Unifont
+License:	GPL v2+
 Group:		X11/Applications
 
 %description viewer
@@ -191,13 +195,14 @@ fontpostinst TTF
 
 %files -n fonts-misc-unifont
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS README
+%doc COPYING ChangeLog NEWS README
 %{_fontsdir}/misc/unifont.pcf.gz
 %{_fontsdir}/misc/unifont_csur.pcf.gz
 %{_mandir}/man5/unifont.5*
 
 %files -n fonts-TTF-unifont
 %defattr(644,root,root,755)
+%doc COPYING ChangeLog NEWS README
 %{_fontsdir}/TTF/unifont.ttf
 %{_fontsdir}/TTF/unifont_csur.ttf
 %{_fontsdir}/TTF/unifont_upper.ttf
@@ -208,6 +213,7 @@ fontpostinst TTF
 
 %files source
 %defattr(644,root,root,755)
+%doc COPYING ChangeLog NEWS README
 %dir %{_datadir}/unifont
 %{_datadir}/unifont/plane00-combining.txt
 %{_datadir}/unifont/unifont.bmp.gz
