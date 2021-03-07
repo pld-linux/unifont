@@ -42,7 +42,7 @@ Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
 Obsoletes:	unifont
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n fonts-misc-unifont
 GNU Unifont is an official GNU package. It is a dual-width
@@ -69,7 +69,7 @@ License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/TTF
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n fonts-TTF-unifont
 GNU Unifont is an official GNU package. It is a dual-width
@@ -95,7 +95,7 @@ Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie PSF
 License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Requires:	kbd
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description console
 GNU Unifont is an official GNU package. It is a dual-width
@@ -122,7 +122,7 @@ Summary:	GNU Unifont source data
 Summary(pl.UTF-8):	Dane źródłowe pakietu GNU Unifont
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Development/Tools
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description source
 GNU Unifont source data, which could be used to generate or embed
