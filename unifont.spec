@@ -5,14 +5,15 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	13.0.06
-Release:	2
+Version:	14.0.01
+Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	60971929464ceb99bbcca55b9ad7c796
+# Source0-md5:	ecf9fdad6f0d3f2376a4f3709ea1aa79
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	xorg-app-bdftopcf
