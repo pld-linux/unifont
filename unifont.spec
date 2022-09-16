@@ -42,7 +42,7 @@ License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception
 Group:		Fonts
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
-Obsoletes:	unifont
+Obsoletes:	unifont < 6
 BuildArch:	noarch
 
 %description -n fonts-misc-unifont
