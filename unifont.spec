@@ -5,12 +5,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	14.0.04
+Version:	15.0.01
 Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ea0476db0bd55de5fbeccfc7d6214dbf
+# Source0-md5:	d6366a8fd03e815c2f18d36ff1a5cca7
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-build >= 4.6
@@ -62,6 +62,33 @@ zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
 Multilingual Plane (Plane 0).
 
 Ten pakiet zawiera font w formacie PCF.
+
+%package -n fonts-OTF-unifont
+Summary:	GNU Unifont - Unicode font in OpenType format
+Summary(pl.UTF-8):	GNU Unifont - font Unicode w formacie OpenType
+License:	SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
+Group:		Fonts
+Requires(post,postun):	fontpostinst
+Requires:	%{_fontsdir}/OTF
+BuildArch:	noarch
+
+%description -n fonts-OTF-unifont
+GNU Unifont is an official GNU package. It is a dual-width
+(8x16/16x16) bitmap font, designed to provide coverage for all of
+Unicode Plane 0, the Basic Multilingual Plane (BMP). This version has
+a glyph for each visible code point in the Unicode 7.0 Basic
+Multilingual Plane (Plane 0).
+
+This package contains the font in OpenType format.
+
+%description -n fonts-OTF-unifont -l pl.UTF-8
+GNU Unifont to oficjalny pakiet GNU. Jest to font bitmapowy podwójnej
+szerokości (8x16/16x16), zaprojektowany z myślą o pokryciu całości
+warstwy Unicode Plane 0 (Basic Multilingual Plane - BMP). Ta wersja
+zawiera glify dla wszystkich widocznych znaków Unicode 7.0 Basic
+Multilingual Plane (Plane 0).
+
+Ten pakiet zawiera font w formacie OpenType.
 
 %package -n fonts-TTF-unifont
 Summary:	GNU Unifont - Unicode font in TrueType format
@@ -169,10 +196,13 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_fontsdir}/OTF
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	USRDIR=usr \
 	CONSOLEDEST=$RPM_BUILD_ROOT/lib/kbd/consolefonts \
+	OTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/OTF \
 	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
@@ -188,6 +218,12 @@ fontpostinst misc
 %postun	-n fonts-misc-unifont
 fontpostinst misc
 
+%post	-n fonts-OTF-unifont
+fontpostinst OTF
+
+%postun	-n fonts-OTF-unifont
+fontpostinst OTF
+
 %post	-n fonts-TTF-unifont
 fontpostinst TTF
 
@@ -200,6 +236,14 @@ fontpostinst TTF
 %{_fontsdir}/misc/unifont.pcf.gz
 %{_fontsdir}/misc/unifont_csur.pcf.gz
 %{_mandir}/man5/unifont.5*
+
+%files -n fonts-OTF-unifont
+%defattr(644,root,root,755)
+%doc COPYING ChangeLog NEWS README
+%{_fontsdir}/OTF/unifont.otf
+%{_fontsdir}/OTF/unifont_csur.otf
+%{_fontsdir}/OTF/unifont_jp.otf
+%{_fontsdir}/OTF/unifont_upper.otf
 
 %files -n fonts-TTF-unifont
 %defattr(644,root,root,755)
