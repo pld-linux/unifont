@@ -1,0 +1,15 @@
+--- unifont-15.0.06/doc/unifont.texi.orig	2022-04-03 17:05:46.000000000 +0200
++++ unifont-15.0.06/doc/unifont.texi	2023-06-07 17:59:52.632988731 +0200
+@@ -23,10 +23,9 @@ Invariant Sections, with no Front-Cover
+ 
+ @end copying
+ 
+-@dircategory Fonts
+-
++@dircategory Typesetting:
+ @direntry
+-* Unifont: (unifont).  A bitmap-based font covering Unicode Plane 0 and beyond.
++* Unifont: (unifont).			A bitmap-based font covering Unicode Plane 0 and beyond
+ @end direntry
+ 
+ @titlepage

@@ -5,17 +5,20 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	15.0.01
+Version:	15.0.06
 Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	d6366a8fd03e815c2f18d36ff1a5cca7
+# Source0-md5:	d39857a6490b16dddbb6f5b18a2a2b39
+Patch0:		%{name}-info.patch
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	sed >= 4.0
+BuildRequires:	texinfo
 BuildRequires:	xorg-app-bdftopcf
 Requires(post,postun):	fontpostinst
 Requires:	%{_fontsdir}/misc
@@ -186,8 +189,13 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 
 %prep
 %setup -q
+%patch0 -p1
+
+%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' src/johab2ucs2
 
 %build
+%{__make} -C doc doc
+
 %{__make} -j1 \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall" \
@@ -195,7 +203,6 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_fontsdir}/OTF
 
 %{__make} install \
@@ -207,7 +214,17 @@ install -d $RPM_BUILD_ROOT%{_fontsdir}/OTF
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
 # sample covering plane 0
-%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,TTF/unifont_sample.ttf}
+%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,OTF/unifont*_sample.otf,TTF/unifont_sample.ttf}
+
+# doxygen documentation for unpackaged code
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont/html
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/unifont/unifont-doxy.pdf
+
+# generated from texi
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/unifont/unifont.{pdf,txt.gz}
+# move to standard place
+install -d $RPM_BUILD_ROOT%{_infodir}
+%{__mv} $RPM_BUILD_ROOT%{_datadir}/unifont/unifont.info* $RPM_BUILD_ROOT%{_infodir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -229,6 +246,12 @@ fontpostinst TTF
 
 %postun	-n fonts-TTF-unifont
 fontpostinst TTF
+
+%post	tools -p /sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
+
+%postun	tools -p /sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files -n fonts-misc-unifont
 %defattr(644,root,root,755)
@@ -263,6 +286,8 @@ fontpostinst TTF
 %{_datadir}/unifont/plane00-combining.txt
 %{_datadir}/unifont/unifont.bmp.gz
 %{_datadir}/unifont/unifont.hex
+%{_datadir}/unifont/unifont_all.hex
+%{_datadir}/unifont/unifont_jp.hex
 %{_datadir}/unifont/wchardata.c
 
 %files tools
@@ -320,6 +345,7 @@ fontpostinst TTF
 %{_mandir}/man1/unihexrotate.1*
 %{_mandir}/man1/unipagecount.1*
 %{_mandir}/man1/unipng2hex.1*
+%{_infodir}/unifont.info*
 
 %if %{with viewer}
 %files viewer
