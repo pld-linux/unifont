@@ -1,16 +1,17 @@
 #
 # Conditional build:
+%bcond_with	ttf	# TrueType fonts
 %bcond_without	viewer	# unifont-viewer package (requires perl-Wx)
 
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	15.0.06
+Version:	15.1.04
 Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	d39857a6490b16dddbb6f5b18a2a2b39
+# Source0-md5:	e8953e109a3dbe1e7bafc69bfc1ba942
 Patch0:		%{name}-info.patch
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
@@ -191,7 +192,7 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 %setup -q
 %patch0 -p1
 
-%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' src/johab2ucs2
+%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' src/{hexdraw,johab2ucs2}
 
 %build
 %{__make} -C doc doc
@@ -200,6 +201,10 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall" \
 	LDFLAGS="%{rpmldflags}"
+
+%if %{with ttf}
+%{__make} -C font truetype
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -214,7 +219,10 @@ install -d $RPM_BUILD_ROOT%{_fontsdir}/OTF
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
 # sample covering plane 0
-%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,OTF/unifont*_sample.otf,TTF/unifont_sample.ttf}
+%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,OTF/unifont*_sample.otf}
+%if %{with ttf}
+%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/TTF/unifont_sample.ttf
+%endif
 
 # doxygen documentation for unpackaged code
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont/html
@@ -268,12 +276,14 @@ fontpostinst TTF
 %{_fontsdir}/OTF/unifont_jp.otf
 %{_fontsdir}/OTF/unifont_upper.otf
 
+%if %{with ttf}
 %files -n fonts-TTF-unifont
 %defattr(644,root,root,755)
 %doc COPYING ChangeLog NEWS README
 %{_fontsdir}/TTF/unifont.ttf
 %{_fontsdir}/TTF/unifont_csur.ttf
 %{_fontsdir}/TTF/unifont_upper.ttf
+%endif
 
 %files console
 %defattr(644,root,root,755)
@@ -300,6 +310,7 @@ fontpostinst TTF
 %attr(755,root,root) %{_bindir}/hexdraw
 %attr(755,root,root) %{_bindir}/hexkinya
 %attr(755,root,root) %{_bindir}/hexmerge
+%attr(755,root,root) %{_bindir}/johab2syllables
 %attr(755,root,root) %{_bindir}/johab2ucs2
 %attr(755,root,root) %{_bindir}/unibdf2hex
 %attr(755,root,root) %{_bindir}/unibmp2hex
@@ -310,22 +321,27 @@ fontpostinst TTF
 %attr(755,root,root) %{_bindir}/unifontchojung
 %attr(755,root,root) %{_bindir}/unifontksx
 %attr(755,root,root) %{_bindir}/unifontpic
+%attr(755,root,root) %{_bindir}/unigen-hangul
 %attr(755,root,root) %{_bindir}/unigencircles
 %attr(755,root,root) %{_bindir}/unigenwidth
 %attr(755,root,root) %{_bindir}/unihex2bmp
 %attr(755,root,root) %{_bindir}/unihex2png
 %attr(755,root,root) %{_bindir}/unihexfill
 %attr(755,root,root) %{_bindir}/unihexgen
+%attr(755,root,root) %{_bindir}/unihexpose
 %attr(755,root,root) %{_bindir}/unihexrotate
+%attr(755,root,root) %{_bindir}/unijohab2html
 %attr(755,root,root) %{_bindir}/unipagecount
 %attr(755,root,root) %{_bindir}/unipng2hex
 %{_mandir}/man1/bdfimplode.1*
 %{_mandir}/man1/hex2bdf.1*
+%{_mandir}/man1/hex2otf.1*
 %{_mandir}/man1/hex2sfd.1*
 %{_mandir}/man1/hexbraille.1*
 %{_mandir}/man1/hexdraw.1*
 %{_mandir}/man1/hexkinya.1*
 %{_mandir}/man1/hexmerge.1*
+%{_mandir}/man1/johab2syllables.1*
 %{_mandir}/man1/johab2ucs2.1*
 %{_mandir}/man1/unibdf2hex.1*
 %{_mandir}/man1/unibmp2hex.1*
@@ -336,15 +352,19 @@ fontpostinst TTF
 %{_mandir}/man1/unifontchojung.1*
 %{_mandir}/man1/unifontksx.1*
 %{_mandir}/man1/unifontpic.1*
+%{_mandir}/man1/unigen-hangul.1*
 %{_mandir}/man1/unigencircles.1*
 %{_mandir}/man1/unigenwidth.1*
 %{_mandir}/man1/unihex2bmp.1*
 %{_mandir}/man1/unihex2png.1*
 %{_mandir}/man1/unihexfill.1*
 %{_mandir}/man1/unihexgen.1*
+%{_mandir}/man1/unihexpose.1*
 %{_mandir}/man1/unihexrotate.1*
+%{_mandir}/man1/unijohab2html.1*
 %{_mandir}/man1/unipagecount.1*
 %{_mandir}/man1/unipng2hex.1*
+%{_mandir}/man5/unifont-johab631.5*
 %{_infodir}/unifont.info*
 
 %if %{with viewer}
