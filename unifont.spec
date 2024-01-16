@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	ttf	# TrueType fonts
+%bcond_without	ttf	# TrueType fonts (3+GB RAM required)
 %bcond_without	viewer	# unifont-viewer package (requires perl-Wx)
 
 Summary:	GNU Unifont - Unicode bitmap font
@@ -203,7 +203,9 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 	LDFLAGS="%{rpmldflags}"
 
 %if %{with ttf}
-%{__make} -C font truetype
+%{__make} -C font -j1 truetype
+# no need to rebuild other formats
+cp -p font/precompiled/*.{bmp,hex,otf,pcf.gz,psf.gz} font/compiled
 %endif
 
 %install
@@ -218,11 +220,15 @@ install -d $RPM_BUILD_ROOT%{_fontsdir}/OTF
 	PCFDEST=$RPM_BUILD_ROOT%{_fontsdir}/misc \
 	TTFDEST=$RPM_BUILD_ROOT%{_fontsdir}/TTF
 
+%if %{with ttf}
+install -d $RPM_BUILD_ROOT%{_fontsdir}/TTF
+for f in unifont unifont_csur unifont_jp unifont_upper ; do
+	cp -p font/compiled/${f}-%{version}.ttf $RPM_BUILD_ROOT%{_fontsdir}/TTF/${f}.ttf
+done
+%endif
+
 # sample covering plane 0
 %{__rm} $RPM_BUILD_ROOT%{_fontsdir}/{misc/unifont_sample.pcf.gz,OTF/unifont*_sample.otf}
-%if %{with ttf}
-%{__rm} $RPM_BUILD_ROOT%{_fontsdir}/TTF/unifont_sample.ttf
-%endif
 
 # doxygen documentation for unpackaged code
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/unifont/html
@@ -282,6 +288,7 @@ fontpostinst TTF
 %doc COPYING ChangeLog NEWS README
 %{_fontsdir}/TTF/unifont.ttf
 %{_fontsdir}/TTF/unifont_csur.ttf
+%{_fontsdir}/TTF/unifont_jp.ttf
 %{_fontsdir}/TTF/unifont_upper.ttf
 %endif
 
