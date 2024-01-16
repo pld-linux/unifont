@@ -194,6 +194,9 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 
 %{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' src/{hexdraw,johab2ucs2}
 
+# no need to regenerate with info patch (omit BR: texi2pdf)
+touch doc/unifont.pdf
+
 %build
 %{__make} -C doc doc
 
