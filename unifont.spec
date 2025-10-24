@@ -6,12 +6,12 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	16.0.03
+Version:	17.0.02
 Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	26fcd6db884f7c9dc80aebaefb41372a
+# Source0-md5:	e147d1bc48ec44ab63ae270b30e42b9d
 Patch0:		%{name}-info.patch
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
@@ -239,9 +239,6 @@ done
 
 # generated from texi
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/unifont/unifont.{pdf,txt.gz}
-# move to standard place
-install -d $RPM_BUILD_ROOT%{_infodir}
-%{__mv} $RPM_BUILD_ROOT%{_datadir}/unifont/unifont.info* $RPM_BUILD_ROOT%{_infodir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -376,6 +373,7 @@ fontpostinst TTF
 %{_mandir}/man1/unipng2hex.1*
 %{_mandir}/man5/unifont-johab631.5*
 %{_infodir}/unifont.info*
+%{_infodir}/unifont-he-zhixiang.png
 
 %if %{with viewer}
 %files viewer
