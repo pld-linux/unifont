@@ -1,0 +1,11 @@
+File is removed from font/Makefile afterwards
+--- unifont-18.0.01/font/ttfsrc/Makefile.orig	2026-08-01 22:22:27.000000000 +0200
++++ unifont-18.0.01/font/ttfsrc/Makefile	2026-11-06 22:19:39.668767266 +0100
+@@ -125,7 +125,6 @@ sbit: $(FONTFILE).bdf
+ 	    Generate($$2, "ttf"); \
+ 	    Close()' \
+ 	   $(FONTFILE).bdf $(FONTFILE).ttf
+-	rm -f $(FONTFILE).bdf
+ 
+ #
+ # Delete files copied into this directory to build TTF fonts.

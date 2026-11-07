@@ -6,13 +6,14 @@
 Summary:	GNU Unifont - Unicode bitmap font
 Summary(pl.UTF-8):	GNU Unifont - font bitmapowy Unicode
 Name:		unifont
-Version:	17.0.03
+Version:	18.0.01
 Release:	1
 License:	GPL v2+ (tools), SIL Open Font License v1.1 or GPL v2+ with GNU font embedding exception (fonts)
 Group:		Fonts
 Source0:	https://ftp.gnu.org/gnu/unifont/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	06ef8ff7317c97219ffd75b9f20c0d1b
+# Source0-md5:	fcea11f51a4a68fd4537753c8454caac
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-ttf.patch
 URL:		http://czyborra.com/unifont/
 BuildRequires:	fontforge
 BuildRequires:	rpm-build >= 4.6
@@ -191,6 +192,7 @@ Przeglądarka GNU Unifont oparta na interfejsie Perla do wxWidgets.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' src/{hexdraw,johab2ucs2}
 
@@ -208,7 +210,7 @@ touch doc/unifont.pdf
 %if %{with ttf}
 %{__make} -C font -j1 truetype
 # no need to rebuild other formats
-cp -p font/precompiled/*.{bmp,hex,otf,pcf.gz,psf.gz} font/compiled
+cp -p font/precompiled/*.{png,hex,otf,pcf.gz,psf.gz} font/compiled
 %endif
 
 %install
@@ -272,6 +274,8 @@ fontpostinst TTF
 %doc COPYING ChangeLog NEWS README
 %{_fontsdir}/misc/unifont.pcf.gz
 %{_fontsdir}/misc/unifont_csur.pcf.gz
+%{_fontsdir}/misc/unifont_jp.pcf.gz
+%{_fontsdir}/misc/unifont_t.pcf.gz
 %{_mandir}/man5/unifont.5*
 
 %files -n fonts-OTF-unifont
@@ -280,6 +284,7 @@ fontpostinst TTF
 %{_fontsdir}/OTF/unifont.otf
 %{_fontsdir}/OTF/unifont_csur.otf
 %{_fontsdir}/OTF/unifont_jp.otf
+%{_fontsdir}/OTF/unifont_t.otf
 %{_fontsdir}/OTF/unifont_upper.otf
 
 %if %{with ttf}
@@ -301,7 +306,7 @@ fontpostinst TTF
 %doc COPYING ChangeLog NEWS README
 %dir %{_datadir}/unifont
 %{_datadir}/unifont/plane00-combining.txt
-%{_datadir}/unifont/unifont.bmp.gz
+%{_datadir}/unifont/unifont.png.gz
 %{_datadir}/unifont/unifont.hex
 %{_datadir}/unifont/unifont_all.hex
 %{_datadir}/unifont/unifont_jp.hex
